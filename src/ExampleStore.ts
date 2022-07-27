@@ -6,6 +6,13 @@ export const useExampleStore = defineStore('example', {
   state: () => ({
     data: object,
   }),
+
+  // Optionally define each value of the widget in the getters
+  // otherwise it will be available with data.value
+  // getters: {
+  //   value: (state) => state.data.value,
+  // },
+
   actions: {
     // Set data always need name and value
     // Otherwise the update to the python counterpart does not work

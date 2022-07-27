@@ -61,6 +61,7 @@ export class ExampleView extends DOMWidgetView {
       this.model.save_changes();
     });
 
+    // ######### Set widget values here ###########
     // Set each widget value in store
     exampleStore.setData('value', this.model.get('value'));
     // Update each widget value here
