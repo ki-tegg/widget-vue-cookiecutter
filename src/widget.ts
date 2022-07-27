@@ -57,8 +57,10 @@ export class ExampleView extends DOMWidgetView {
     const exampleStore = useExampleStore();
     // update jupyter model on store changes
     exampleStore.$onAction((context) => {
-      this.model.set(context.args[0], context.args[1]);
-      this.model.save_changes();
+      if (context.name === 'setData') {
+        this.model.set(context.args[0], context.args[1]);
+        this.model.save_changes();
+      }
     });
 
     // ######### Set widget values here ###########
