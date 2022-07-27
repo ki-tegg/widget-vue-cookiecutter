@@ -14,12 +14,13 @@ export default defineComponent({
       setData: 'setData',
     }),
     changeStoreModel() {
-      this.setData('value', 'This is a new value set dynamically');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      this.setData('value', this.$refs.input.value);
     },
   },
   template: `
-    <kitegg-button :label="data.value"></kitegg-button>
-    <kitegg-button label="Change Store model" @click="changeStoreModel"></kitegg-button>
-    <kitegg-button label="this is a test label via props 3"></kitegg-button>
+    <input type="text" ref="input" :placeholder="data.value">
+    <kitegg-button label="update model" @click="changeStoreModel"></kitegg-button>
   `,
 });
