@@ -6,4 +6,4 @@ python -m pip install -e .
 jupyter labextension develop . --overwrite
 jlpm run build
 
-jupyter lab build
+jupyter lab build 
