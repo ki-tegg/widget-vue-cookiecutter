@@ -16,11 +16,11 @@ export default defineComponent({
     changeStoreModel() {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      this.setData('value', this.$refs.input.value);
+      this.setData('value', this.$refs.exampleInput.value);
     },
   },
   template: `
-    <input type="text" ref="input" :placeholder="data.value">
+    <input type="text" ref="exampleInput" :placeholder="data.value">
     <kitegg-button label="update model" @click="changeStoreModel"></kitegg-button>
   `,
 });
