@@ -3,3 +3,9 @@
   * (c) 2022 Eduardo San Martin Morote
   * @license MIT
   */
+
+/*!
+ * Quasar Framework v2.7.7
+ * (c) 2015-present Razvan Stoenescu
+ * Released under the MIT License.
+ */

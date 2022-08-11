@@ -1,11 +1,9 @@
 import { defineComponent } from 'vue';
-import KiteggButton from './components/button';
 
 import { useExampleStore } from './ExampleStore';
 import { mapState, mapActions } from 'pinia';
 
 export default defineComponent({
-  components: { KiteggButton },
   computed: {
     ...mapState(useExampleStore, ['data']),
   },
@@ -20,7 +18,8 @@ export default defineComponent({
     },
   },
   template: `
-    <input type="text" ref="exampleInput" :placeholder="data.value">
-    <kitegg-button label="update model" @click="changeStoreModel"></kitegg-button>
+    <input class="q-mr-lg" type="text" ref="exampleInput" :placeholder="data.value">
+    <k-btn label="Hallo" size="sm" :primary="false" :dark="true" @click="changeStoreModel"/>
+    <k-toggle label="toggle"/>
   `,
 });
