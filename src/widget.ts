@@ -15,6 +15,10 @@ import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import { createPinia } from 'pinia';
 import { useExampleStore } from './ExampleStore';
 import ExampleWidget from './ExampleWidget';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import kiteggUi from 'kitegg-ui';
+import 'kitegg-ui/dist/style.css';
 
 export class ExampleModel extends DOMWidgetModel {
   defaults() {
@@ -49,6 +53,8 @@ export class ExampleView extends DOMWidgetView {
     const pinia = createPinia();
     // Create Vue app with widget
     const app = createApp(ExampleWidget);
+    // Add kitegg-ui components
+    app.use(kiteggUi);
     // Add pinia to Vue
     app.use(pinia);
     // Mount vue app in jupyter
