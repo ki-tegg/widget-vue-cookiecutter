@@ -17,8 +17,8 @@ import { useExampleStore } from './ExampleStore';
 import ExampleWidget from './ExampleWidget';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import kiteggUi from 'kitegg-ui';
-import 'kitegg-ui/dist/style.css';
+import kiteggUi from '@kitegg/kitegg-ui';
+import '@kitegg/kitegg-ui/dist/style.css';
 
 export class ExampleModel extends DOMWidgetModel {
   defaults() {

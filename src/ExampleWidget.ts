@@ -18,8 +18,11 @@ export default defineComponent({
     },
   },
   template: `
-    <input class="q-mr-lg" type="text" ref="exampleInput" :placeholder="data.value">
-    <k-btn label="Hallo" size="sm" :primary="false" :dark="true" @click="changeStoreModel"/>
-    <k-toggle label="toggle"/>
+    <div>
+      <input class="q-mr-lg" type="text" ref="exampleInput" :placeholder="data.value">
+      <KBtn label="Hallo" size="sm" :primary="false" :dark="true" @click="changeStoreModel"/>
+      <div>Neue Changes Again :)!</div>
+      <KSelect :options="['mail', 'Figma', 'Mattermost']" label="Contact" dense />
+    </div>
   `,
 });
