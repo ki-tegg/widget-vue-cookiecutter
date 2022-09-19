@@ -15,11 +15,19 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "es2015",
-    "types": ["jest"]
+    "types": ["jest"],
+      "paths": {
+         "@/*": [
+              "./*"
+         ]
+    }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/**/*.vue"
   ],
-  "exclude": ["src/**/__tests__"]
+  "exclude": [
+      "src/**/__tests__"
+  ]
 }

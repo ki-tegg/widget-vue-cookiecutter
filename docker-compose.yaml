@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  jupyterlab:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: jupyterlab-vue-widgets
+    env_file:
+      - .env
+    environment:
+      JUPYTER_ENABLE_LAB: 'yes'
+    ports:
+      - '8888:8888'
+    volumes:
+      - $PWD:/home
+#    stdin_open: true
+#    tty: true

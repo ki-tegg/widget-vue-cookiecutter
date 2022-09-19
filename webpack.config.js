@@ -33,6 +33,7 @@ module.exports = [
    * the notebook.
    */
   {
+    mode: 'production',
     entry: './src/extension.ts',
     output: {
       filename: 'index.js',

@@ -155,3 +155,9 @@ vuewidget/labextension/*.tgz
 
 # Packed lab extensions
 vuewidget/labextension
+
+
+.ipython/
+.jupyter/
+.local/
+.npm/

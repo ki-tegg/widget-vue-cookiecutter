@@ -1,72 +1,68 @@
+# KITeGG Widgets
 
-# vuewidget
+A widget library for jupyter notebooks. Easy interfaces for Machine Learning and Artifical Intelligence.  
+Based on [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).
 
-[![Build Status](https://travis-ci.org/kitegg/vuewidget.svg?branch=master)](https://travis-ci.org/kitegg/vuewidget)
-[![codecov](https://codecov.io/gh/kitegg/vuewidget/branch/master/graph/badge.svg)](https://codecov.io/gh/kitegg/vuewidget)
+## 📝 Colophon
 
+- Technology
+  - Based on the [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/) library to develop widgets for Jupyter notebooks.
+  - Extended with [Vue 3](https://vuejs.org/), [Quasar](https://quasar.dev/) and our custom UI library [KITeGG UI](https://gitlab.rlp.net/kitegg/kitegg-lehr-lernplattform/kitegg-ui-components) to develop component-based frontend interfaces.
+  - Using [Docker](https://www.docker.com/) to create an unified development environment.
+- Fonts in use
+  - ...
 
-A Custom Jupyter Widget Library
+## 🚧 Development
 
-## Installation
+### 1. Initial Setup `.env`
 
-You can install using `pip`:
+Before you can use the docker environment you have to make the private KITeGG UI library accessible from GitLab.
 
-```bash
-pip install vuewidget
-```
+To do so, you have to generate a personal access token with your GitLab account and add it to a `.env` file. Copy the `.env.example` file and rename it to `.env`. After that, replace `YOUR_GITLAB_ACCESS_TOKEN` with your new generated access token.
 
-If you are using Jupyter Notebook 5.2 or earlier, you may also need to enable
-the nbextension:
-```bash
-jupyter nbextension enable --py [--sys-prefix|--user|--system] vuewidget
-```
+### 2. Use the Docker environment
 
-## Development Installation
+#### 1. Start the docker container.
 
-Create a dev environment:
-```bash
-conda create -n vuewidget-dev -c conda-forge nodejs yarn python jupyterlab
-conda activate vuewidget-dev
-```
-
-Install the python. This will also build the TS package.
-```bash
-pip install -e ".[test, examples]"
-```
-
-When developing your extensions, you need to manually enable your extensions with the
-notebook / lab frontend. For lab, this is done by the command:
-
-```
-jupyter labextension develop --overwrite .
-yarn run build
-```
-
-For classic notebook, you need to run:
-
-```
-jupyter nbextension install --sys-prefix --symlink --overwrite --py vuewidget
-jupyter nbextension enable --sys-prefix --py vuewidget
-```
-
-Note that the `--symlink` flag doesn't work on Windows, so you will here have to run
-the `install` command every time that you rebuild your extension. For certain installations
-you might also need another flag instead of `--sys-prefix`, but we won't cover the meaning
-of those flags here.
-
-### How to see your changes
-#### Typescript:
-If you use JupyterLab to develop then you can watch the source directory and run JupyterLab at the same time in different
-terminals to watch for changes in the extension's source and automatically rebuild the widget.
+The first time running this command it could take some time, because the image needs to be downloaded and build. The second time starting the container it should be significantly faster.
 
 ```bash
-# Watch the source directory in one terminal, automatically rebuilding when needed
-yarn run watch
-# Run JupyterLab in another terminal
-jupyter lab
+docker compose up
 ```
 
-After a change wait for the build to finish and then refresh your browser and the changes should take effect.
+Some times it could be necessary to rebuild the image. For example if the image was updated or the current container is broken. Run the following command to rebuild the image.
 
-#### Python:
-If you make a change to the python code then you will need to restart the notebook kernel to have it take effect.
+```bash
+docker compose up --build
+```
+
+The container will start in an idle mode. It will do nothing but will keep on running until you close your terminal window.
+
+#### 2. Run the `setup.sh` inside the docker container.
+
+Hook into the container from your terminal.
+
+```bash
+docker exec -it jupyterlab-vue-widgets /bin/bash
+```
+
+Execute the `setup.sh`. It will start the container in watch mode. That will recompile the widgets if there are any changes.
+
+```bash
+bash setup.sh
+```
+
+#### 3. Start Jupyter Lab
+
+Now you can start Jupyter Lab inside of the container. Use another container terminal to start Jupyter Lab
+
+```bash
+jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --notebook-dir=/home --ServerApp.token=''
+```
+
+Open the link in the terminal!
+
+## 🏗️ Build the widget
+
+To build the widget you can use `pip install build` and the run `python -m build -s` this should create python source package in `/dist` as `.tar.gz`.
+This can then be installed with `pip install <package-name>.tar.gz`.
