@@ -1,31 +1,62 @@
 const path = require('path');
 const version = require('./package.json').version;
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
 
 // Custom webpack rules
 const rules = [
-  { test: /\.ts$/, loader: 'ts-loader' },
+  {
+    test: /\.ts$/,
+    loader: 'ts-loader',
+    options: { appendTsSuffixTo: [/\.vue$/] },
+    exclude: /node_modules/,
+  },
   { test: /\.js$/, loader: 'source-map-loader' },
-  { test: /\.css$/, use: ['vue-style-loader', 'style-loader', 'css-loader']},
+  { test: /\.css$/, use: ['vue-style-loader', 'style-loader', 'css-loader'] },
   {
     test: /\.vue$/,
-    loader: 'vue-loader'
+    loader: 'vue-loader',
+    options: {
+      esModule: true,
+    },
   },
 ];
 
-const plugins = [
-    new VueLoaderPlugin()
-]
+const plugins = [new VueLoaderPlugin()];
 
 // Packages that shouldn't be bundled but loaded at runtime
 const externals = ['@jupyter-widgets/base'];
 
 const resolve = {
   // Add '.ts' and '.tsx' as resolvable extensions.
-  extensions: [".webpack.js", ".web.js", ".ts", ".js"]
+  extensions: ['.webpack.js', '.web.js', '.ts', '.js', '.vue'],
+  mainFields: ['vue', 'browser', 'module', 'main'],
+  alias: {
+    vue: 'vue/dist/vue.esm-bundler.js',
+  },
 };
 
 module.exports = [
+  /**
+   * Lab extension
+   *
+   * This builds the lib/ folder with the JupyterLab extension.
+   */
+  {
+    entry: './src/plugin.ts',
+    output: {
+      filename: 'index.js',
+      path: path.resolve(__dirname, 'lib'),
+      libraryTarget: 'amd',
+      publicPath: '',
+    },
+    module: {
+      rules: rules,
+    },
+    plugins,
+    externals,
+    resolve,
+  },
+
   /**
    * Notebook extension
    *
@@ -42,7 +73,7 @@ module.exports = [
       publicPath: '',
     },
     module: {
-      rules: rules
+      rules: rules,
     },
     plugins,
     devtool: 'source-map',
@@ -63,21 +94,20 @@ module.exports = [
   {
     entry: './src/index.ts',
     output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'amd',
-        library: "vuewidget",
-        publicPath: 'https://unpkg.com/vuewidget@' + version + '/dist/'
+      filename: 'index.js',
+      path: path.resolve(__dirname, 'dist'),
+      libraryTarget: 'amd',
+      library: 'vuewidget',
+      publicPath: 'https://unpkg.com/vuewidget@' + version + '/dist/',
     },
     devtool: 'source-map',
     module: {
-        rules: rules
+      rules: rules,
     },
     plugins,
     externals,
     resolve,
   },
-
 
   /**
    * Documentation widget bundle
@@ -89,16 +119,15 @@ module.exports = [
     output: {
       filename: 'embed-bundle.js',
       path: path.resolve(__dirname, 'docs', 'source', '_static'),
-      library: "vuewidget",
-      libraryTarget: 'amd'
+      library: 'vuewidget',
+      libraryTarget: 'amd',
     },
     module: {
-      rules: rules
+      rules: rules,
     },
     plugins,
     devtool: 'source-map',
     externals,
     resolve,
-  }
-
+  },
 ];
