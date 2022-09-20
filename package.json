@@ -29,22 +29,20 @@
     "url": "https://github.com/kitegg/vuewidget"
   },
   "scripts": {
-    "build": "yarn run build:lib && yarn run build:nbextension && yarn run build:labextension:dev",
-    "build:prod": "yarn run build:lib && yarn run build:nbextension && yarn run build:labextension",
+    "build": "yarn run build:nbextension && yarn run build:labextension:dev",
+    "build:prod": "yarn run build:nbextension && yarn run build:labextension",
     "build:labextension": "jupyter labextension build .",
     "build:labextension:dev": "jupyter labextension build --development True .",
-    "build:lib": "tsc",
-    "build:nbextension": "webpack",
+    "build:nbextension": "webpack --mode=production",
     "clean": "yarn run clean:lib && yarn run clean:nbextension && yarn run clean:labextension",
     "clean:lib": "rimraf lib",
     "clean:labextension": "rimraf vuewidget/labextension",
     "clean:nbextension": "rimraf vuewidget/nbextension/static/index.js",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "lint:check": "eslint . --ext .ts,.tsx",
-    "prepack": "yarn run build:lib",
+    "prepack": "yarn run build:prod",
     "test": "jest",
     "watch": "npm-run-all -p watch:*",
-    "watch:lib": "tsc -w",
     "watch:nbextension": "webpack --watch --mode=development",
     "watch:labextension": "jupyter labextension watch ."
   },
@@ -68,6 +66,7 @@
     "@types/webpack-env": "^1.13.6",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
+    "@vue/tsconfig": "^0.1.3",
     "acorn": "^7.2.0",
     "css-loader": "^3.2.0",
     "eslint": "^7.4.0",
@@ -84,12 +83,12 @@
     "style-loader": "^1.0.0",
     "ts-jest": "^26.0.0",
     "ts-loader": "^8.0.0",
-    "typescript": "~4.1.3",
+    "typescript": "^4.8.3",
     "webpack": "^5.61.0",
     "webpack-cli": "^4.0.0"
   },
   "jupyterlab": {
-    "extension": "lib/plugin",
+    "extension": "lib/index",
     "outputDir": "vuewidget/labextension/",
     "sharedPackages": {
       "@jupyter-widgets/base": {

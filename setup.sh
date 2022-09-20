@@ -12,4 +12,5 @@ jupyter labextension develop . --overwrite
 # Use watch commands instead of build commands
 # Recompiles jupyter and widgets on file change
 # Faster compilation time
-jupyter labextension watch & jlpm run watch
+# jupyter labextension watch & jlpm run watch
+jlpm run watch

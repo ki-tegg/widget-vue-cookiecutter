@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "declaration": true,
-    "esModuleInterop":true,
-    "lib": ["es2015", "dom"],
-    "module": "commonjs",
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noUnusedLocals": true,
@@ -14,20 +15,18 @@
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "es2015",
-    "types": ["jest"],
-      "paths": {
-         "@/*": [
-              "./*"
-         ]
+    "target": "es6",
+    "types": ["jest", "webpack-env"],
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./src/*"]
     }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/shims-vue.d.ts"
   ],
-  "exclude": [
-      "src/**/__tests__"
-  ]
+  "exclude": ["src/**/__tests__", "node_modules"]
 }
