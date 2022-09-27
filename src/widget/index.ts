@@ -7,18 +7,20 @@ import {
   ISerializers,
 } from '@jupyter-widgets/base';
 
-import { MODULE_NAME, MODULE_VERSION } from './version';
+import { MODULE_NAME, MODULE_VERSION } from '../version';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { createApp } from 'vue/dist/vue.esm-bundler.js';
+import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { useExampleStore } from './ExampleStore';
-import ExampleWidget from './ExampleWidget';
+import { useExampleStore } from './store';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import kiteggUi from '@kitegg/kitegg-ui';
 import '@kitegg/kitegg-ui/dist/style.css';
+
+// Import Vue Widget
+import Example from './Example.vue';
 
 export class ExampleModel extends DOMWidgetModel {
   defaults() {
@@ -30,6 +32,8 @@ export class ExampleModel extends DOMWidgetModel {
       _view_name: ExampleModel.view_name,
       _view_module: ExampleModel.view_module,
       _view_module_version: ExampleModel.view_module_version,
+
+      // Set the python counterpart values
       value: 'Hello World',
     };
   }
@@ -52,7 +56,7 @@ export class ExampleView extends DOMWidgetView {
     // Add pinia
     const pinia = createPinia();
     // Create Vue app with widget
-    const app = createApp(ExampleWidget);
+    const app = createApp(Example);
     // Add kitegg-ui components
     app.use(kiteggUi);
     // Add pinia to Vue
@@ -69,10 +73,15 @@ export class ExampleView extends DOMWidgetView {
       }
     });
 
-    // ######### Set widget values here ###########
-    // Set each widget value in store
-    exampleStore.setData('value', this.model.get('value'));
-    // Update each widget value here
-    this.model.on('change:value', (val) => exampleStore.update('value', val));
+    // ######### Set widget valueKeys here ###########
+    const widgetValues = ['value', 'path']
+
+    // Add listeners for each value
+    widgetValues.forEach((valKey) => {
+      // Set each widget value in store
+      exampleStore.setData(valKey, this.model.get(valKey));
+      // Update each widget value here
+      this.model.on(`change:${valKey}`, (val) => exampleStore.update(valKey, val));
+    })
   }
 }
