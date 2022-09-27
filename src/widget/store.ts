@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 // ts deinition for data object
 const object: { [key: string]: any[] } = {};
 
-export const useExampleStore = defineStore('example', {
+export const useDataStore = defineStore('data', {
   state: () => ({
     data: object,
   }),
