@@ -21,15 +21,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { useExampleStore } from './store';
+import { useDataStore } from './store';
 import { mapState, mapActions } from 'pinia';
 
 export default defineComponent({
   computed: {
-    ...mapState(useExampleStore, ['data']),
+    ...mapState(useDataStore, ['data']),
   },
   methods: {
-    ...mapActions(useExampleStore, {
+    ...mapActions(useDataStore, {
       setData: 'setData',
     }),
     changeStoreModel() {

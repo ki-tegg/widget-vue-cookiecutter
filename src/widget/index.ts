@@ -13,7 +13,7 @@ import { MODULE_NAME, MODULE_VERSION } from '../version';
 // @ts-ignore
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { useExampleStore } from './store';
+import { useDataStore } from './store';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import kiteggUi from '@kitegg/kitegg-ui';
@@ -64,9 +64,9 @@ export class ExampleView extends DOMWidgetView {
     // Mount vue app in jupyter
     app.mount(this.el);
     // Initialise store
-    const exampleStore = useExampleStore();
+    const dataStore = useDataStore();
     // update jupyter model on store changes
-    exampleStore.$onAction((context) => {
+    dataStore.$onAction((context) => {
       if (context.name === 'setData') {
         this.model.set(context.args[0], context.args[1]);
         this.model.save_changes();
@@ -79,9 +79,9 @@ export class ExampleView extends DOMWidgetView {
     // Add listeners for each value
     widgetValues.forEach((valKey) => {
       // Set each widget value in store
-      exampleStore.setData(valKey, this.model.get(valKey));
+      dataStore.setData(valKey, this.model.get(valKey));
       // Update each widget value here
-      this.model.on(`change:${valKey}`, (val) => exampleStore.update(valKey, val));
+      this.model.on(`change:${valKey}`, (val) => dataStore.update(valKey, val));
     })
   }
 }
