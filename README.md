@@ -12,6 +12,10 @@ Based on [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).
 - Fonts in use
   - ...
 
+## 🔍 Examples
+
+In the `/examples` folder are notebooks, which demonstrate the usage of the current widget.
+
 ## 🚧 Development
 
 ### 1. Initial Setup `.env`
