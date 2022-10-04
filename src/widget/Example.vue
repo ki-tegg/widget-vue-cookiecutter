@@ -10,35 +10,30 @@
     size="sm"
     :primary="false"
     :dark="true"
-    @click="changeStoreModel"
+    @click="updateStoreModel"
   />
   <div>Neue Changes :)!</div>
   <KSelect :options="['mail', 'Figma', 'Mattermost']" label="Contact" dense />
 </template>
 
-<script setup lang="ts"></script>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup>
+import { ref } from 'vue';
 import { useDataStore } from './store';
-import { mapState, mapActions } from 'pinia';
+import { storeToRefs } from 'pinia';
 
-export default defineComponent({
-  computed: {
-    ...mapState(useDataStore, ['data']),
-  },
-  methods: {
-    ...mapActions(useDataStore, {
-      setData: 'setData',
-    }),
-    changeStoreModel() {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.setData('value', this.$refs.exampleInput.value);
-    },
-  },
-});
+const dataStore = useDataStore()
+const { data } = storeToRefs(dataStore)
+
+const exampleInput = ref(undefined)
+
+// Watch for value changes
+dataStore.$subscribe((mutation, state) => {
+  if (mutation.storeId === 'data') console.log(state.data.value) // Do something
+})
+
+function updateStoreModel () {
+  dataStore.setData('value', exampleInput.value.value);
+}
 </script>
 
 <style scoped></style>
