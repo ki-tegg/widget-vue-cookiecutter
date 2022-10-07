@@ -1,19 +1,18 @@
-<template>
-  <input
-    class="q-mr-lg"
+<template lang="pug">
+div
+  input.q-mr-lg(
     type="text"
     ref="exampleInput"
     :placeholder="data.value"
-  />
-  <KBtn
+  )
+  KBtn(
     label="Hallo"
     size="sm"
     :primary="false"
     :dark="true"
     @click="updateStoreModel"
-  />
-  <div>Neue Changes :)!</div>
-  <KSelect :options="['mail', 'Figma', 'Mattermost']" label="Contact" dense />
+  )
+  KSelect(:options="['mail', 'Figma', 'Mattermost']" label="Contact" dense)
 </template>
 
 <script setup>
