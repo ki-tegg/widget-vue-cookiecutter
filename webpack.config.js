@@ -19,6 +19,10 @@ const rules = [
       esModule: true,
     },
   },
+  {
+    test: /\.pug$/,
+    loader: 'pug-plain-loader'
+  }
 ];
 
 const plugins = [new VueLoaderPlugin()];
