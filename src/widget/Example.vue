@@ -15,7 +15,7 @@ div
   KSelect(:options="['mail', 'Figma', 'Mattermost']" label="Contact" dense)
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import { useDataStore } from './store';
 import { storeToRefs } from 'pinia';
@@ -23,7 +23,7 @@ import { storeToRefs } from 'pinia';
 const dataStore = useDataStore()
 const { data } = storeToRefs(dataStore)
 
-const exampleInput = ref(undefined)
+const exampleInput = ref<HTMLInputElement>()
 
 // Watch for value changes
 dataStore.$subscribe((mutation, state) => {
@@ -31,7 +31,7 @@ dataStore.$subscribe((mutation, state) => {
 })
 
 function updateStoreModel () {
-  dataStore.setData('value', exampleInput.value.value);
+  dataStore.setData('value', exampleInput.value?.value);
 }
 </script>
 

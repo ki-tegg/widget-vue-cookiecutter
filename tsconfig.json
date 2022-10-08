@@ -28,5 +28,8 @@
     "src/**/*.vue",
     "src/shims-vue.d.ts"
   ],
-  "exclude": ["src/**/__tests__", "node_modules"]
+  "exclude": ["src/**/__tests__", "node_modules"],
+  "vueCompilerOptions": {
+    "plugins": ["@volar/vue-language-plugin-pug"]
+  }
 }
