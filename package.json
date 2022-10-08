@@ -66,6 +66,7 @@
     "@types/webpack-env": "^1.13.6",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
+    "@volar/vue-language-plugin-pug": "^1.0.0",
     "@vue/tsconfig": "^0.1.3",
     "acorn": "^7.2.0",
     "css-loader": "^3.2.0",
