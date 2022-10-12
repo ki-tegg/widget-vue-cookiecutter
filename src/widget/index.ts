@@ -56,7 +56,11 @@ export class ExampleView extends DOMWidgetView {
     // Add pinia
     const pinia = createPinia();
     // Create Vue app with widget
-    const app = createApp(Example);
+    const app = createApp(Example, {
+      onSend: () => {
+        this.send({ event: 'executePython' });
+      },
+    });
     // Add kitegg-ui components
     app.use(kiteggUi);
     // Add pinia to Vue
@@ -74,7 +78,7 @@ export class ExampleView extends DOMWidgetView {
     });
 
     // ######### Set widget valueKeys here ###########
-    const widgetValues = ['value', 'path']
+    const widgetValues = ['value'];
 
     // Add listeners for each value
     widgetValues.forEach((valKey) => {
@@ -82,6 +86,6 @@ export class ExampleView extends DOMWidgetView {
       dataStore.setData(valKey, this.model.get(valKey));
       // Update each widget value here
       this.model.on(`change:${valKey}`, (val) => dataStore.update(valKey, val));
-    })
+    });
   }
 }
