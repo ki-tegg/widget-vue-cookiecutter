@@ -78,14 +78,20 @@ export class ExampleView extends DOMWidgetView {
     });
 
     // ######### Set widget valueKeys here ###########
-    const widgetValues = ['value'];
+    const widgetValues = ['value', 'path'];
 
     // Add listeners for each value
     widgetValues.forEach((valKey) => {
       // Set each widget value in store
       dataStore.setData(valKey, this.model.get(valKey));
       // Update each widget value here
-      this.model.on(`change:${valKey}`, (val) => dataStore.update(valKey, val));
+      this.model.on(
+        `change:${valKey}`,
+        () => {
+          dataStore.update(valKey, this.model.get(valKey));
+        },
+        this
+      );
     });
   }
 }
