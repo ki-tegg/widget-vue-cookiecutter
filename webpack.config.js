@@ -22,6 +22,14 @@ const rules = [
   {
     test: /\.pug$/,
     loader: 'pug-plain-loader'
+  },
+  {
+    test: /\.(png|jpg|gif|svg|eot|woff|woff2|ttf)$/,
+    use: [
+      {
+        loader: "file-loader"
+      }
+    ]
   }
 ];
 

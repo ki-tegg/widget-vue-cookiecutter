@@ -1358,10 +1358,10 @@
     "@lumino/properties" "^1.8.0"
     "@lumino/signaling" "^1.10.0"
 
-"@kitegg/kitegg-ui@^1.4.1":
-  version "1.4.1"
-  resolved "https://gitlab.rlp.net/api/v4/projects/30382/packages/npm/@kitegg/kitegg-ui/-/@kitegg/kitegg-ui-1.4.1.tgz"
-  integrity sha1-0vonINQY8TMS6p8iWlrRVdIuM+o=
+"@kitegg/kitegg-ui@^1.7.3":
+  version "1.7.3"
+  resolved "https://gitlab.rlp.net/api/v4/projects/30382/packages/npm/@kitegg/kitegg-ui/-/@kitegg/kitegg-ui-1.7.3.tgz"
+  integrity sha1-ajGQ/tBzWtMoB6rgbQOOTBE+q1I=
   dependencies:
     "@quasar/extras" "^1.15.1"
     pug "^3.0.2"
@@ -4252,7 +4252,7 @@ fs.realpath@^1.0.0:
 
 fsevents@^2.1.2:
   version "2.3.2"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 function-bind@^1.1.1:
