@@ -1358,10 +1358,10 @@
     "@lumino/properties" "^1.8.0"
     "@lumino/signaling" "^1.10.0"
 
-"@kitegg/kitegg-ui@^1.7.3":
-  version "1.7.3"
-  resolved "https://gitlab.rlp.net/api/v4/projects/30382/packages/npm/@kitegg/kitegg-ui/-/@kitegg/kitegg-ui-1.7.3.tgz"
-  integrity sha1-ajGQ/tBzWtMoB6rgbQOOTBE+q1I=
+"@kitegg/kitegg-ui@^1.7.4":
+  version "1.7.4"
+  resolved "https://gitlab.rlp.net/api/v4/projects/30382/packages/npm/@kitegg/kitegg-ui/-/@kitegg/kitegg-ui-1.7.4.tgz"
+  integrity sha1-OLVfUQiJpo/snyf1bgDEv5gbxVE=
   dependencies:
     "@quasar/extras" "^1.15.1"
     pug "^3.0.2"

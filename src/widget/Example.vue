@@ -20,8 +20,7 @@ div
     :primary="false"
     :dark="true"
     @click="emit('send')"
-    class="q-mt-md"
-    style="display: block;"
+    class="python-function-btn q-mt-md"
   )
 </template>
 
@@ -33,7 +32,7 @@ import { storeToRefs } from 'pinia';
 const dataStore = useDataStore();
 const { data } = storeToRefs(dataStore);
 
-const emit = defineEmits(['send'])
+const emit = defineEmits(['send']);
 
 const exampleInput = ref<HTMLInputElement>();
 
@@ -47,4 +46,8 @@ function updateStoreModel() {
 }
 </script>
 
-<style scoped></style>
+<style module>
+.python-function-btn {
+  display: block;
+}
+</style>
