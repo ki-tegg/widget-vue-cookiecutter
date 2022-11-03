@@ -13,7 +13,7 @@ RUN conda install -c conda-forge \
                     python=3.8 \
                     pip \
                     jupyterlab \
-                    jupyter-packaging \
+                    hatch-jupyter-builder \
                     nodejs=16 \
                     yarn \
                     ipywidgets

@@ -1,3 +1,117 @@
 [build-system]
-requires = ["jupyter_packaging==0.7.9", "jupyterlab==3.*", "setuptools>=40.8.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = [
+    "hatchling",
+    "jupyterlab==3.*",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "vuewidget"
+description = "A Custom Jupyter Widget Library"
+readme = "README.md"
+requires-python = ">=3.6"
+authors = [
+    { name = "Jean Boehm", email = "jean.boehm@hs-mainz.de" },
+]
+keywords = [
+    "IPython",
+    "Jupyter",
+    "Widgets",
+]
+classifiers = [
+    "Framework :: Jupyter",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+]
+dependencies = [
+    "ipywidgets>=7.0.0",
+]
+version = "0.1.0.dev0"
+
+[project.license]
+file = "LICENSE.txt"
+
+[project.optional-dependencies]
+docs = [
+    "jupyter_sphinx",
+    "nbsphinx",
+    "nbsphinx-link",
+    "pypandoc",
+    "pytest_check_links",
+    "recommonmark",
+    "sphinx>=1.5",
+    "sphinx_rtd_theme",
+]
+examples = []
+test = [
+    "nbval",
+    "pytest-cov",
+    "pytest>=4.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/kitegg/vuewidget"
+
+[tool.hatch.build]
+artifacts = [
+    "vuewidget/nbextension/index.*",
+    "vuewidget/labextension/*.tgz",
+    "vuewidget/labextension",
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"vuewidget/nbextension" = "share/jupyter/nbextensions/vuewidget"
+"vuewidget/labextension" = "share/jupyter/labextensions/vuewidget"
+"./install.json" = "share/jupyter/labextensions/vuewidget/install.json"
+"./vuewidget.json" = "etc/jupyter/nbconfig/notebook.d/vuewidget.json"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    ".github",
+]
+
+[tool.hatch.build.hooks.jupyter-builder]
+ensured-targets = [
+    "vuewidget/nbextension/index.js",
+    "vuewidget/labextension/package.json",
+]
+skip-if-exists = [
+    "vuewidget/nbextension/index.js",
+    "vuewidget/labextension/package.json",
+]
+dependencies = [
+    "hatch-jupyter-builder>=0.8.1",
+]
+build-function = "hatch_jupyter_builder.npm_builder"
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+path = "."
+build_cmd = "build:prod"
+
+[tool.tbump]
+field = [
+    { name = "channel", default = "" },
+    { name = "release", default = "" },
+]
+
+[tool.tbump.version]
+current = "0.1.0.dev0"
+regex = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)((?P<channel>a|b|rc|.dev)(?P<release>\\d+))?"
+
+[tool.tbump.git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+version_template = "version = \"{major}.{minor}.{patch}{channel}{release}\""
+
+[[tool.tbump.file]]
+src = "vuewidget/_version.py"
