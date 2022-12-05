@@ -34,7 +34,7 @@ The first time running this command it could take some time, because the image n
 docker compose up
 ```
 
-Some times it could be necessary to rebuild the image. For example if the image was updated or the current container is broken. Run the following command to rebuild the image.
+Sometimes it could be necessary to rebuild the image. For example if the image was updated or the current container is broken. Run the following command to rebuild the image.
 
 ```bash
 docker compose up --build
@@ -64,9 +64,41 @@ Now you can start Jupyter Lab inside of the container. Use another container ter
 jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --notebook-dir=/home --ServerApp.token=''
 ```
 
-Open the link in the terminal!
+Open the link in the terminal.
 
 ## 🏗️ Build the widget
 
 To build the widget you can use `pip install build` and the run `python -m build -s` this should create python source package in `/dist` as `.tar.gz`.
 This can then be installed with `pip install <package-name>.tar.gz`.
+
+## 📦 Publish the widget as a PyPI package
+
+This widget can also be releaserd as a PyPI package which can then be installed via `pip`.
+
+### 1. Increase the version number
+
+Before you publish the widget, the version number needs to be increased. Change the version number accordingly to your changes in the following files:
+
+- `package.json` at line 3
+- `pyproject.toml` at line 36 & 105
+- `_frontend.py` at line 12
+- `_version.py` at line 7
+
+### 2. Push changes to the `prod`-Branch
+
+Push your changes to the `prod`-Branch. This will automatically trigger a pipeline which will release the new version of this widget.
+
+> **CAUTION:** This will only work, if the new version number is higher than the version number of the currently released package. Make sure you have increased the version number as described in Step 1.
+
+### 3. Install the widget via `pip`
+
+After pushing your changes to the `prod`-Branch you can now install the package via the following command:
+
+```bash
+pip install --index-url https://<personal_access_token_name>:<personal_access_token>@rlp.gitlab.net/api/v4/projects/<project_id>/packages/pypi/simple --no-deps <package_name>
+```
+
+The `project_id` for this widget is: 30262  
+The `package_name` for this widget is: vuewidget
+
+Follow the link to find out more about how to generate a personal access token: [GitLab - Personal Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)

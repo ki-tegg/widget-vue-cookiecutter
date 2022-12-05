@@ -21,16 +21,16 @@ const rules = [
   },
   {
     test: /\.pug$/,
-    loader: 'pug-plain-loader'
+    loader: 'pug-plain-loader',
   },
   {
     test: /\.(png|jpg|gif|svg|eot|woff|woff2|ttf)$/,
     use: [
       {
-        loader: "file-loader"
-      }
-    ]
-  }
+        loader: 'file-loader',
+      },
+    ],
+  },
 ];
 
 const plugins = [new VueLoaderPlugin()];

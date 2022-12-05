@@ -4,4 +4,4 @@
 # Copyright (c) Jean Boehm.
 # Distributed under the terms of the Modified BSD License.
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
