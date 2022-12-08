@@ -1,0 +1,26 @@
+default:
+  image: continuumio/miniconda3:4.12.0
+  before_script:
+    - apt update && apt install -y git python-dev gcc
+    - conda install -c conda-forge python=3.8 pip jupyterlab hatch-jupyter-builder nodejs=16 yarn ipywidgets
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/30382/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/30382/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+      } | tee -a .npmrc
+
+variables:
+  GITLAB_ACCESS_TOKEN: ${GITLAB_ACCESS_TOKEN}
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH
+
+release:
+  script:
+    - npm install --save @kitegg/kitegg-ui
+    - pip install build twine
+    - python -m build -s
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*.tar.gz
+  rules:
+    - if: $CI_COMMIT_BRANCH == "prod"

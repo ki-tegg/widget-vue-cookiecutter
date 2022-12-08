@@ -1,6 +1,6 @@
 {
   "name": "vuewidget",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Custom Jupyter Widget Library",
   "keywords": [
     "jupyter",
