@@ -95,10 +95,7 @@ Push your changes to the `prod`-Branch. This will automatically trigger a pipeli
 After pushing your changes to the `prod`-Branch you can now install the package via the following command:
 
 ```bash
-pip install --index-url https://<personal_access_token_name>:<personal_access_token>@rlp.gitlab.net/api/v4/projects/<project_id>/packages/pypi/simple --no-deps <package_name>
+pip install vuewidget --extra-index-url https://__token__:<your_personal_token>@gitlab.rlp.net/api/v4/projects/30262/packages/pypi/simple
 ```
 
-The `project_id` for this widget is: 30262  
-The `package_name` for this widget is: vuewidget
-
-Follow the link to find out more about how to generate a personal access token: [GitLab - Personal Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
+To install the package with `pip` you need to generate a personal access token first. Follow the link to find out how to generate one: [GitLab - Personal Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
