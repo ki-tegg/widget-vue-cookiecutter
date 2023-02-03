@@ -1,8 +1,8 @@
 #!/bin/bash
-npm install --save @kitegg/kitegg-ui
-jlpm install
+yarn add @kitegg/kitegg-ui
+yarn install
 
-jlpm run build
+yarn run build
 
 python3 -m pip install --no-cache-dir -e .
 jupyter labextension develop . --overwrite
@@ -10,4 +10,4 @@ jupyter labextension develop . --overwrite
 # Use watch commands instead of build commands
 # Recompiles jupyter and widgets on file change
 # Faster compilation time
-jlpm run watch
+yarn run watch
