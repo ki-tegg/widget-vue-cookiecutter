@@ -1,30 +1,28 @@
-FROM continuumio/miniconda3:4.12.0
+FROM continuumio/miniconda3:22.11.1
 
 USER root
 
 WORKDIR /home
 
-RUN apt update && apt install -y git python-dev gcc
+RUN apt update && apt install -y python-dev gcc curl
 
-#COPY setup.sh setup.sh
-#RUN chmod +x setup.sh
+# Install Rust & Cargo
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 RUN conda install -c conda-forge \
-                    python=3.8 \
+                    python=3.10 \
                     pip \
                     jupyterlab \
                     hatch-jupyter-builder \
-                    nodejs=16 \
+                    nodejs=18 \
                     yarn \
                     ipywidgets
 
 EXPOSE 8888
 
+# KITeGG ASCii 
+# Displayed after starting the container
 COPY KITeGG-ASCii.txt KITeGG-ASCii.txt
 RUN chmod +x KITeGG-ASCii.txt
 
 ENTRYPOINT ["/bin/sh", "-c" , "cat KITeGG-ASCii.txt && tail -f /dev/null"]
-#CMD ["jupyter","lab","--ip=0.0.0.0","--port=8888","--no-browser","--allow-root", "--notebook-dir=/home"]
-#USER ${NB_UID}
-
-#CMD ["jupyter", "lab", "--ServerApp.token=''"]

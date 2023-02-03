@@ -1358,12 +1358,13 @@
     "@lumino/properties" "^1.8.0"
     "@lumino/signaling" "^1.10.0"
 
-"@kitegg/kitegg-ui@^1.8.6":
-  version "1.8.6"
-  resolved "https://gitlab.rlp.net/api/v4/projects/30382/packages/npm/@kitegg/kitegg-ui/-/@kitegg/kitegg-ui-1.8.6.tgz"
-  integrity sha1-/b+ULC2eDbkkgOh/fmscqZzGuSc=
+"@kitegg/kitegg-ui@^1.11.0":
+  version "1.11.0"
+  resolved "https://gitlab.rlp.net/api/v4/projects/30382/packages/npm/@kitegg/kitegg-ui/-/@kitegg/kitegg-ui-1.11.0.tgz#4774b4fc1b802a01e598e14d971631d352f82118"
+  integrity sha1-R3S0/BuAKgHlmOFNlxYx01L4IRg=
   dependencies:
     "@quasar/extras" "^1.15.1"
+    "@quasar/quasar-ui-qmediaplayer" "^2.0.0-beta.6"
     pug "^3.0.2"
     quasar "^2.7.7"
     vue "^3.2.37"
@@ -1631,10 +1632,17 @@
     "@phosphor/signaling" "^1.3.1"
     "@phosphor/virtualdom" "^1.2.0"
 
-"@quasar/extras@^1.15.1":
+"@quasar/extras@^1.13.0", "@quasar/extras@^1.15.1":
   version "1.15.3"
   resolved "https://registry.npmjs.org/@quasar/extras/-/extras-1.15.3.tgz"
   integrity sha512-kc2h+zTOBRx8eR3TYUjB3ZmALYoH3LBSaOFuha11Ncixk8NTwm9GNCQL6kxmC/CQiaP9Q78KFFgrv3AXGnCvLw==
+
+"@quasar/quasar-ui-qmediaplayer@^2.0.0-beta.6":
+  version "2.0.0-beta.6"
+  resolved "https://registry.npmjs.org/@quasar/quasar-ui-qmediaplayer/-/quasar-ui-qmediaplayer-2.0.0-beta.6.tgz"
+  integrity sha512-j0Y6NCMkup/fjwpOT2kWPG+w3X1yVxmRaSHxQRtWLsWHjiSheaJLWKqZDJ9UarEKL8rtS/CUtadD+ENvcBEHHQ==
+  dependencies:
+    "@quasar/extras" "^1.13.0"
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
