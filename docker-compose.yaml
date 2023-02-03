@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: jupyterlab-vue-widgets
+    container_name: vue-widget-template
     env_file:
       - .env
     environment:
