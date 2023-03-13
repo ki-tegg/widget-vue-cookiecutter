@@ -1,40 +1,60 @@
-# KITeGG Widgets
+# widget-vue-cookiecutter
 
-A widget library for jupyter notebooks. Easy interfaces for Machine Learning and Artifical Intelligence.  
-Based on [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).
+A cookiecutter template for a custom [Jupyter widget](https://ipywidgets.readthedocs.io/en/stable/) project using [Vue 3](https://vuejs.org/) and [Pinia](https://pinia.vuejs.org/).
+This cookiecutter is based on the great [widget-ts-cookiecutter](https://github.com/jupyter-widgets/widget-ts-cookiecutter) and [widget-svelte-cookiecutter](https://github.com/cabreraalex/widget-svelte-cookiecutter).
 
-## 📝 Colophon
+In addition this custom Jupyter widget cookiecutter uses [Docker](https://www.docker.com/) as a dev environment for a better DX.
 
-- Technology
-  - Based on the [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/) library to develop widgets for Jupyter notebooks.
-  - Extended with [Vue 3](https://vuejs.org/), [Quasar](https://quasar.dev/) and our custom UI library [KITeGG UI](https://gitlab.rlp.net/kitegg/kitegg-lehr-lernplattform/kitegg-ui-components) to develop component-based frontend interfaces.
-  - Using [Docker](https://www.docker.com/) to create an unified development environment.
-- Fonts in use
-  - ...
+This cookiecutter is part of a larger research project trying to bring AI into design education: [KITeGG / gestaltung.ai](https://gestaltung.ai/#/).
 
-## 🔍 Examples
+## 🚧 Usage
 
-In the `/examples` folder are notebooks, which demonstrate the usage of the current widget.
+### 1. Download the cookiecutter
 
-## 🚧 Development
+Install [cookiecutter](https://github.com/cookiecutter/cookiecutter):
 
-### 1. Initial Setup `.env`
+```bash
+pip install cookiecutter
+```
 
-Before you can use the docker environment you have to make the private KITeGG UI library accessible from GitLab.
+After installing cookiecutter, use the widget-vue-cookiecutter:
 
-To do so, you have to generate a personal access token with your GitLab account and add it to a `.env` file. Copy the `.env.example` file and rename it to `.env`. After that, replace `YOUR_GITLAB_ACCESS_TOKEN` with your new generated access token.
+```bash
+cookiecutter https://github.com/ki-tegg/widget-vue-cookiecutter.git
+```
+
+As widget-vue-cookiecutter runs, you will be asked for basic information about
+your custom Jupyter widget project. You will be prompted for the following
+information:
+
+- `author_name`: your name or the name of your organization,
+- `author_email`: your project's contact email,
+- `github_project_name`: name of your custom Jupyter widget's GitHub repository,
+- `github_organization_name`: name of your custom Jupyter widget's GitHub user or organization,
+- `python_package_name`: name of the Python "back-end" package used in your custom widget.
+- `npm_package_name`: name for the npm "front-end" package holding the JavaScript
+  implementation used in your custom widget.
+- `npm_package_version`: initial version of the npm package.
+- `project_short_description` : a short description for your project that will
+  be used for both the "back-end" and "front-end" packages.
+
+After this, you will have a directory containing files used for creating a custom Jupyter widget.
 
 ### 2. Use the Docker environment
 
 #### 1. Start the docker container.
 
-The first time running this command it could take some time, because the image needs to be downloaded and build. The second time starting the container it should be significantly faster.
+Navigate in your freshly created folder and execute the following command:
 
 ```bash
 docker compose up
 ```
 
-Sometimes it could be necessary to rebuild the image. For example if the image was updated or the current container is broken. Run the following command to rebuild the image.
+This will start the docker container used for developing the widgets.
+
+The first time running this command it could take some time, because the container needs to be downloaded and build. The second time starting the container it should be significantly faster.
+
+Sometimes it could be necessary to rebuild the container. For example if the image was updated or the current container is broken. Run the following command to rebuild the container:
 
 ```bash
 docker compose up --build
@@ -42,15 +62,17 @@ docker compose up --build
 
 The container will start in an idle mode. It will do nothing but will keep on running until you close your terminal window.
 
+After starting the container you are prompted with instructions on how to continue. Alternatively you can follow these steps:
+
 #### 2. Run the `setup.sh` inside the docker container.
 
-Hook into the container from your terminal.
+Open a new terminal window and hook into the container.
 
 ```bash
-docker exec -it jupyterlab-vue-widgets /bin/bash
+docker exec -it <python package name> /bin/bash
 ```
 
-Execute the `setup.sh`. It will start the container in watch mode. That will recompile the widgets if there are any changes.
+Execute the `setup.sh`. This bash script contains multiple commands which will install all the needed dependencies as well as building and installing the widget. In the end it will start a `watch` command to automatically rebuild the widget on code changes.
 
 ```bash
 bash setup.sh
@@ -58,44 +80,38 @@ bash setup.sh
 
 #### 3. Start Jupyter Lab
 
-Now you can start Jupyter Lab inside of the container. Use another container terminal to start Jupyter Lab
+Now you can start Jupyter Lab inside the container. Open another terminal window and execute the following command to start Jupyter Lab.
 
 ```bash
 jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --notebook-dir=/home --ServerApp.token=''
 ```
 
-Open the link in the terminal.
+Open the link displayed in the terminal. By default is is `localhost:8888`.
 
-## 🏗️ Build the widget
+#### 4. See changes
 
-To build the widget you can use `pip install build` and the run `python -m build -s` this should create python source package in `/dist` as `.tar.gz`.
-This can then be installed with `pip install <package-name>.tar.gz`.
+##### JavaScript & TypeScript
 
-## 📦 Publish the widget as a PyPI package
+If you make a change to the JavaScript or TypeScript code you need to reload the browser window to see the changes.
 
-This widget can also be releaserd as a PyPI package which can then be installed via `pip`.
+##### Python
 
-### 1. Increase the version number
+If you make a change to the python code then you will need to restart the notebook kernel to have it take effect.
 
-Before you publish the widget, the version number needs to be increased. Change the version number accordingly to your changes in the following files:
+## 📦 Publish your custom widgets as a PyPI package
 
-- `package.json` at line 3
-- `pyproject.toml` at line 36 & 105
-- `_frontend.py` at line 12
-- `_version.py` at line 7
+This widget can also be released as a PyPI package which can then be installed via `pip`.
 
-### 2. Push changes to the `prod`-Branch
+For that follow the instructions of the widget-ts-cookiecutter [here](https://github.com/jupyter-widgets/widget-ts-cookiecutter#releasing-your-initial-packages).
 
-Push your changes to the `prod`-Branch. This will automatically trigger a pipeline which will release the new version of this widget.
+## 🔍 Examples
 
-> **CAUTION:** This will only work, if the new version number is higher than the version number of the currently released package. Make sure you have increased the version number as described in Step 1.
+In the `/examples` folder is a Jupyter notebook, which executes an example widget.
 
-### 3. Install the widget via `pip`
+## Footer
 
-After pushing your changes to the `prod`-Branch you can now install the package via the following command:
+[KITeGG](https://gestaltung.ai/#/) is founded by [BMBF](https://www.bmbf.de/bmbf/de/home/home_node.html) and the states of RLP, NRW, BW, HE.
 
-```bash
-pip install vuewidget --extra-index-url https://__token__:<your_personal_token>@gitlab.rlp.net/api/v4/projects/30262/packages/pypi/simple
-```
-
-To install the package with `pip` you need to generate a personal access token first. Follow the link to find out how to generate one: [GitLab - Personal Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
+- https://gestaltung.ai/
+- https://twitter.com/gestaltungai
+- https://www.instagram.com/gestaltungai/
